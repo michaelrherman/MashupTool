@@ -3,6 +3,7 @@ package com.michaelRherman;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class MashupGUI extends JFrame {
     private JPanel rootPanel;
@@ -25,6 +26,11 @@ public class MashupGUI extends JFrame {
 //                try {
                 searchTerm = searchField.getText();
                 System.out.println(searchTerm);
+                try {
+                    Database.databaseMethod();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
 /*                } catch (Exception e1) {
                     e1.printStackTrace();
                 }*/
