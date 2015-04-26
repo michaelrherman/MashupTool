@@ -3,16 +3,18 @@ package com.michaelRherman;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URISyntaxException;
 import java.sql.SQLException;
 
 public class MashupGUI extends JFrame {
     private JPanel rootPanel;
-    private JTextField searchField;
-    private JLabel searchLabel;
+    private JTextField artistField;
+    private JLabel artistLabel;
     private JButton okayButton;
+    private JTextField songField;
+    private JLabel songLabel;
 
-    private static String searchTerm;
+    private static String artistSearch;
+    private static String songSearch;
 
     protected MashupGUI() {
         super("Mashup Helper");
@@ -24,23 +26,21 @@ public class MashupGUI extends JFrame {
         okayButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                searchTerm = searchField.getText();
-               System.out.println(searchTerm);
+                artistSearch = artistField.getText();
+                songSearch = songField.getText();
+                System.out.println(artistSearch);
+                System.out.println(songSearch);
                 try {
-                    Database.insertSearch(searchTerm); //Passes the search term thru to the database to be stored
-                    Main.openDefaultBrowser(searchTerm);
+                    Database.insertSearch(artistSearch, songSearch); //Passes the search terms thru to the database to be stored
+                    EchoNest.prepareEchoNest(artistSearch, songSearch);
                 } catch (SQLException se) {
                     System.out.println(se);
-                } catch (URISyntaxException ue) {
-                    System.out.println(ue);
+//                } catch (URISyntaxException ue) {
+//                    System.out.println(ue);
                 } catch (Exception oe) {
                     System.out.println(oe);
                 }
             }
         });
-    }
-
-    public static String getSearchTerm() {
-        return searchTerm;
     }
 }

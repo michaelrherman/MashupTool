@@ -15,6 +15,8 @@ public class Database {
     private static ResultSet rs = null;
     private static PreparedStatement psInsert = null;
 
+    private static int Counter = 0;
+
     protected static void databaseInitialize() throws Exception {
         try {
             Class.forName(driver);
@@ -22,7 +24,7 @@ public class Database {
             statement = conn.createStatement();
 
             try {
-                String createTableSQL = "CREATE TABLE Searches (Search varchar(50))";
+                String createTableSQL = "CREATE TABLE Searches (Index integer, Artist varchar(50), Song varchar(50))";
                 statement.executeUpdate(createTableSQL);
                 System.out.println("Created table");
             } catch (SQLException se) {
@@ -35,13 +37,16 @@ public class Database {
         }
     }
 
-    protected static void insertSearch(String searchTerm) throws SQLException {
+    protected static void insertSearch(String artistSearch, String songSearch) throws SQLException {
 
         try {
-            String prepStatInsert = "INSERT INTO Searches VALUES ( ? )";
+            String prepStatInsert = "INSERT INTO Searches VALUES ( ? , ? , ?)";
             psInsert = conn.prepareStatement(prepStatInsert);
-            psInsert.setString(1, searchTerm);
+            psInsert.setInt(1, Counter);
+            psInsert.setString(2, artistSearch);
+            psInsert.setString(3, songSearch);
             psInsert.executeUpdate();
+            Counter++;
 
             printSearches();
 
@@ -53,7 +58,7 @@ public class Database {
 
     private static void printSearches() throws SQLException{
         try {
-            String printAll = "Select * FROM Searches";
+            String printAll = "Select Index, Artist, Song FROM Searches";
             rs = statement.executeQuery(printAll);
 
             while (rs.next()) {

@@ -20,6 +20,7 @@ public class Main {
             BufferedReader bufferedReader = new BufferedReader(reader);
             apiKey = bufferedReader.readLine();
             reader.close();
+            EchoNest.setKeyAPI(apiKey);
         } catch (Exception e) {
             System.out.println("API key not present");
         }
