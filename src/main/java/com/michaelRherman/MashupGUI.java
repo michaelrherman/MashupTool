@@ -24,9 +24,9 @@ public class MashupGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 searchTerm = searchField.getText();
-                System.out.println(searchTerm);
+//                System.out.println(searchTerm);
                 try {
-                    Database.insertSearch(searchTerm);
+                    Database.insertSearch(searchTerm); //Passes the search term thru to the database to be stored
                 } catch (SQLException se) {
                     System.out.println(se);
                 }

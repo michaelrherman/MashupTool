@@ -15,7 +15,7 @@ public class Database {
     private static ResultSet rs = null;
     private static PreparedStatement psInsert = null;
 
-    protected static void databaseMethod() throws Exception {
+    protected static void databaseInitialize() throws Exception {
         try {
             Class.forName(driver);
             conn = DriverManager.getConnection(protocol + dbName + ";create=true", USER, PASS);
@@ -36,11 +36,11 @@ public class Database {
     }
 
     protected static void insertSearch(String searchTerm) throws SQLException {
-        String sTerm = searchTerm;
+
         try {
             String prepStatInsert = "INSERT INTO Searches VALUES ( ? )";
             psInsert = conn.prepareStatement(prepStatInsert);
-            psInsert.setString(1, sTerm);
+            psInsert.setString(1, searchTerm);
             psInsert.executeUpdate();
 
             printSearches();
