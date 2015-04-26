@@ -2,7 +2,7 @@ package com.michaelRherman;
 
 import org.json.simple.JSONObject;
 
-class JSON {
+public class JSON {
 
     protected static JSONObject echonestResponse;
     protected static String artistID;
