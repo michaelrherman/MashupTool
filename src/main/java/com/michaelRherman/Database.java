@@ -10,16 +10,12 @@ public class Database {
     private static final String USER = "username";
     private static final String PASS = "password";
 
-    protected static String searchTerm;
+    private static Statement statement = null;
+    private static Connection conn = null;
+    private static ResultSet rs = null;
+    private static PreparedStatement psInsert = null;
 
-    public static void databaseMethod() throws SQLException {
-        Statement statement = null;
-        Connection conn = null;
-        ResultSet rs = null;
-        PreparedStatement psInsert = null;
-        PreparedStatement psUpdate = null;
-        PreparedStatement psDelete = null;
-
+    protected static void databaseMethod() throws Exception {
         try {
             Class.forName(driver);
             conn = DriverManager.getConnection(protocol + dbName + ";create=true", USER, PASS);
@@ -29,60 +25,79 @@ public class Database {
                 String createTableSQL = "CREATE TABLE Searches (Search varchar(50))";
                 statement.executeUpdate(createTableSQL);
                 System.out.println("Created table");
-            } catch (SQLException e) {
-                System.out.println("SQL Error");
-                System.out.println(e);
+            } catch (SQLException se) {
+                System.out.println(se);
             }
 
-            searchTerm = MashupGUI.getSearchTerm();
+        } catch (ClassNotFoundException ce) {
+            closeDatabase();
+            System.out.println(ce);
+        }
+    }
+
+    protected static void insertSearch(String searchTerm) throws SQLException {
+        String sTerm = searchTerm;
+        try {
             String prepStatInsert = "INSERT INTO Searches VALUES ( ? )";
             psInsert = conn.prepareStatement(prepStatInsert);
-            psInsert.setString(1, searchTerm);
+            psInsert.setString(1, sTerm);
             psInsert.executeUpdate();
 
-            String printAll = "Select * Searches";
+            printSearches();
+
+        } catch (SQLException se) {
+            closeDatabase();
+            System.out.println(se);
+        }
+    }
+
+    private static void printSearches() throws SQLException{
+        try {
+            String printAll = "Select * FROM Searches";
             rs = statement.executeQuery(printAll);
 
-            while (rs.next()){
+            while (rs.next()) {
                 String search = rs.getString(1);
                 System.out.println(search);
             }
+        } catch (SQLException se) {
+            closeDatabase();
+            System.out.println(se);
+        }
+    }
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                    System.out.println("ResultSet closed");
-                }
-            } catch (SQLException se) {
-                se.printStackTrace();
+    protected static void closeDatabase() {
+        try {
+            if (rs != null) {
+                rs.close();
+                System.out.println("ResultSet closed");
             }
-            try {
-                if (statement != null) {
-                    statement.close();
-                    System.out.println("Statement closed");
-                }
-            } catch (SQLException se){
-                se.printStackTrace();
+        } catch (SQLException se) {
+            System.out.println(se);
+        }
+        try {
+            if (statement != null) {
+                statement.close();
+                System.out.println("Statement closed");
             }
-            try {
-                if (psInsert != null) {
-                    psInsert.close();
-                    System.out.println("Prepared Statement closed");
-                }
-            } catch (SQLException se){
-                se.printStackTrace();
+        } catch (SQLException se){
+            System.out.println(se);
+        }
+        try {
+            if (psInsert != null) {
+                psInsert.close();
+                System.out.println("Prepared Statement closed");
             }
-            try {
-                if (conn != null) {
-                    conn.close();
-                    System.out.println("Database connection closed");
-                }
-            } catch (SQLException se) {
-                se.printStackTrace();
+        } catch (SQLException se){
+            System.out.println(se);
+        }
+        try {
+            if (conn != null) {
+                conn.close();
+                System.out.println("Database connection closed");
             }
+        } catch (SQLException se) {
+            System.out.println(se);
         }
     }
 }

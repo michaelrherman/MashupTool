@@ -23,17 +23,13 @@ public class MashupGUI extends JFrame {
         okayButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                try {
                 searchTerm = searchField.getText();
                 System.out.println(searchTerm);
                 try {
-                    Database.databaseMethod();
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
+                    Database.insertSearch(searchTerm);
+                } catch (SQLException se) {
+                    System.out.println(se);
                 }
-/*                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }*/
             }
         });
     }
