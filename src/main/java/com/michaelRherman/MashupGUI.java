@@ -27,12 +27,18 @@ public class MashupGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 artistSearch = artistField.getText();
+                if (artistSearch.length()==0) {
+                    artistSearch = null;
+                }
                 songSearch = songField.getText();
+                if (songSearch.length()==0) {
+                    songSearch = null;
+                }
                 System.out.println(artistSearch);
                 System.out.println(songSearch);
                 try {
                     Database.insertSearch(artistSearch, songSearch); //Passes the search terms thru to the database to be stored
-                    EchoNest.prepareEchoNest(artistSearch, songSearch);
+                    JSON.getEchonestResponse(EchoNest.prepareEchoNest(artistSearch, songSearch));
                 } catch (SQLException se) {
                     System.out.println(se);
 //                } catch (URISyntaxException ue) {

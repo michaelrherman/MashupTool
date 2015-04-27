@@ -1,44 +1,41 @@
 package com.michaelRherman;
 
-import java.awt.*;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLEncoder;
+import java.net.*;
 
 public class EchoNest {
 
     private static String keyAPI;
-    private String artistName;
-    private String songTitle;
-    private String artistNum;
-    private String songNum;
+    private static String url;
 
-    public static void prepareEchoNest(String artistSearch, String songSearch) {
+    public static String prepareEchoNest(String artistSearch, String songSearch) {
         try {
-            if (Desktop.isDesktopSupported()) {
+//            if (Desktop.isDesktopSupported()) { //Commented out code in this section was a part of testing.
                 if (artistSearch !=null && songSearch !=null) {
                     artistSearch = URLEncoder.encode(artistSearch, "UTF-8"); //URLEncoder necessary to account for spaces, dashes, etc.
                     songSearch = URLEncoder.encode(songSearch, "UTF-8");
-                    String url = "http://developer.echonest.com/api/v4/song/search?api_key="+keyAPI+"&artist="+artistSearch+"&title="+songSearch;
-                    Desktop.getDesktop().browse(new URI(url));
+                    url = "http://developer.echonest.com/api/v4/song/search?api_key="+keyAPI+"&artist="+artistSearch+"&title="+songSearch;
+//                    Desktop.getDesktop().browse(new URI(url));
                 } else if (artistSearch !=null && songSearch ==null) {
                     artistSearch = URLEncoder.encode(artistSearch, "UTF-8");
-                    String url = "http://developer.echonest.com/api/v4/song/search?api_key="+keyAPI+"&artist="+artistSearch;
+                    url = "http://developer.echonest.com/api/v4/song/search?api_key="+keyAPI+"&artist="+artistSearch;
+//                    Desktop.getDesktop().browse(new URI(url));
                 } else if (artistSearch ==null && songSearch !=null) {
                     songSearch = URLEncoder.encode(songSearch, "UTF-8");
-                    String url = "http://developer.echonest.com/api/v4/song/search?api_key="+keyAPI+"&title="+songSearch;
+                    url = "http://developer.echonest.com/api/v4/song/search?api_key="+keyAPI+"&title="+songSearch;
+//                    Desktop.getDesktop().browse(new URI(url));
                 } else {
                     System.out.println("Something went wrong putting the query together.");
                 }
-            }
-        } catch (URISyntaxException USE) {
-            System.out.println(USE);
+//            }
+//        } catch (URISyntaxException USE) {
+//            System.out.println(USE);
         } catch (IOException IOE) {
             System.out.println(IOE);
         } catch (Exception E) {
             System.out.println(E);
         }
+    return url;
     }
 
     public static void echonestInfo(String searchTerm) {

@@ -18,6 +18,10 @@ public class JSON {
     protected static Double tempo;
     protected static Double timeSignature;
 
+    public static JSONObject getEchonestResponse(String url) {
+        //TODO Get JSON object from EchoNest
+    return echonestResponse;
+    }
 
      public static void JSONArtistSongInfo(JSONObject echonestJSON) {
 
