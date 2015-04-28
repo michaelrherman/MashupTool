@@ -1,6 +1,10 @@
 package com.michaelRherman;
 
 import org.json.simple.JSONObject;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class JSON {
 
@@ -18,9 +22,20 @@ public class JSON {
     protected static Double tempo;
     protected static Double timeSignature;
 
-    public static JSONObject getEchonestResponse(String url) {
-        //TODO Get JSON object from EchoNest
-    return echonestResponse;
+    public static void getEchonestResponse(String url) throws Exception {
+    /* Adapted from http://docs.oracle.com/javase/tutorial/networking/urls/readingURL.html */
+        try {
+            URL echoNest = new URL(url);
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(echoNest.openStream()));
+            String echonestResponseString;
+            while ((echonestResponseString = in.readLine()) != null)
+                System.out.println(echonestResponseString);
+            in.close();
+        } catch (MalformedURLException mue) {
+            System.out.println(mue); //Shouldn't be necessary but it's here in case.
+        }
+//    return echonestResponse;
     }
 
      public static void JSONArtistSongInfo(JSONObject echonestJSON) {

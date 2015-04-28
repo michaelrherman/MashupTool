@@ -7,14 +7,23 @@ import java.sql.SQLException;
 
 public class MashupGUI extends JFrame {
     private JPanel rootPanel;
-    private JTextField artistField;
-    private JLabel artistLabel;
+    private JTextField artistField1;
+    private JLabel artistLabel1;
     private JButton okayButton;
-    private JTextField songField;
-    private JLabel songLabel;
+    private JTextField songField1;
+    private JLabel songLabel1;
+    private JLabel artistLabel2;
+    private JTextField artistField2;
+    private JTextField songField2;
+    private JLabel songLabel2;
+    private JList result1List;
+    private JPanel listPanel;
+    private JScrollPane listScroll;
 
-    private static String artistSearch;
-    private static String songSearch;
+    private static String artistSearch1;
+    private static String songSearch1;
+    private static String artistSearch2;
+    private static String songSearch2;
 
     protected MashupGUI() {
         super("Mashup Helper");
@@ -26,19 +35,30 @@ public class MashupGUI extends JFrame {
         okayButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                artistSearch = artistField.getText();
-                if (artistSearch.length()==0) {
-                    artistSearch = null;
+                artistSearch1 = artistField1.getText();
+                if (artistSearch1.length()==0) {
+                    artistSearch1 = null;
                 }
-                songSearch = songField.getText();
-                if (songSearch.length()==0) {
-                    songSearch = null;
+                songSearch1 = songField1.getText();
+                if (songSearch1.length()==0) {
+                    songSearch1 = null;
                 }
-                System.out.println(artistSearch);
-                System.out.println(songSearch);
+
+                artistSearch2 = artistField2.getText();
+                if (artistSearch2.length()==0) {
+                    artistSearch2 = null;
+                }
+                songSearch2 = songField2.getText();
+                if (songSearch2.length()==0) {
+                    songSearch2 = null;
+                }
+//                System.out.println(artistSearch);
+//                System.out.println(songSearch);
                 try {
-                    Database.insertSearch(artistSearch, songSearch); //Passes the search terms thru to the database to be stored
-                    JSON.getEchonestResponse(EchoNest.prepareEchoNest(artistSearch, songSearch));
+                    Database.insertSearch(artistSearch1, songSearch1); //Passes the search terms thru to the database to be stored
+                    Database.insertSearch(artistSearch2, songSearch2);
+                    JSON.getEchonestResponse(EchoNest.prepareEchoNest(artistSearch1, songSearch1));
+                    JSON.getEchonestResponse(EchoNest.prepareEchoNest(artistSearch2, songSearch2));
                 } catch (SQLException se) {
                     System.out.println(se);
 //                } catch (URISyntaxException ue) {
@@ -46,6 +66,10 @@ public class MashupGUI extends JFrame {
                 } catch (Exception oe) {
                     System.out.println(oe);
                 }
+
+                listPanel.setVisible(true);
+                listScroll.setVisible(true);
+                result1List.setVisible(true);
             }
         });
     }

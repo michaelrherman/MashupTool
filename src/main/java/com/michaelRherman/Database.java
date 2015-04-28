@@ -15,8 +15,6 @@ public class Database {
     private static ResultSet rs = null;
     private static PreparedStatement psInsert = null;
 
-    private static int Counter = 0;
-
     protected static void databaseInitialize() throws Exception {
         try {
             Class.forName(driver);
@@ -24,9 +22,18 @@ public class Database {
             statement = conn.createStatement();
 
             try {
-                String createTableSQL = "CREATE TABLE Searches (Index integer, Artist varchar(50), Song varchar(50))";
+                String createTableSQL = "CREATE TABLE Searches (Artist varchar(50), Song varchar(50))";
                 statement.executeUpdate(createTableSQL);
-                System.out.println("Created table");
+                System.out.println("Created table Searches");
+
+                createTableSQL = "CREATE TABLE Cache (Artist varchar(50), ArtistID varchar(18), Song varchar(50), SongID varchar (18))";
+                statement.executeUpdate(createTableSQL);
+                System.out.println("Created table Cache");
+
+                createTableSQL = "CREATE TABLE Favorites (Artist varchar(50), ArtistID varchar(18), Song varchar(50), SongID varchar (18))";
+                statement.executeUpdate(createTableSQL);
+                System.out.println("Created table Favorites");
+
             } catch (SQLException se) {
                 System.out.println(se);
             }
@@ -40,13 +47,11 @@ public class Database {
     protected static void insertSearch(String artistSearch, String songSearch) throws SQLException {
 
         try {
-            String prepStatInsert = "INSERT INTO Searches VALUES ( ? , ? , ?)";
+            String prepStatInsert = "INSERT INTO Searches VALUES ( ? , ?)";
             psInsert = conn.prepareStatement(prepStatInsert);
-            psInsert.setInt(1, Counter);
-            psInsert.setString(2, artistSearch);
-            psInsert.setString(3, songSearch);
+            psInsert.setString(1, artistSearch);
+            psInsert.setString(2, songSearch);
             psInsert.executeUpdate();
-            Counter++;
 
             printSearches();
 
@@ -62,7 +67,10 @@ public class Database {
             rs = statement.executeQuery(printAll);
 
             while (rs.next()) {
-                String search = rs.getString(1);
+                String index = rs.getString(1);
+                String artist = rs.getString(2);
+                String song = rs.getString(3);
+                String search = index+" "+artist+" "+song;
                 System.out.println(search);
             }
         } catch (SQLException se) {
