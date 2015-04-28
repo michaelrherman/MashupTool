@@ -17,8 +17,11 @@ public class MashupGUI extends JFrame {
     private JTextField songField2;
     private JLabel songLabel2;
     private JList result1List;
-    private JPanel listPanel;
-    private JScrollPane listScroll;
+    private JList result2List;
+    private JScrollPane result1Scroll;
+    private JScrollPane result2Scroll;
+    private JPanel result1Panel;
+    private JPanel result2Panel;
 
     private static String artistSearch1;
     private static String songSearch1;
@@ -67,9 +70,13 @@ public class MashupGUI extends JFrame {
                     System.out.println(oe);
                 }
 
-                listPanel.setVisible(true);
-                listScroll.setVisible(true);
+                result1Panel.setVisible(true);
+                result1Scroll.setVisible(true);
                 result1List.setVisible(true);
+
+                result2Panel.setVisible(true);
+                result2Scroll.setVisible(true);
+                result2List.setVisible(true);
             }
         });
     }

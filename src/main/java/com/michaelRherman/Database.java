@@ -63,14 +63,13 @@ public class Database {
 
     private static void printSearches() throws SQLException{
         try {
-            String printAll = "Select Index, Artist, Song FROM Searches";
+            String printAll = "Select * FROM Searches";
             rs = statement.executeQuery(printAll);
 
             while (rs.next()) {
-                String index = rs.getString(1);
-                String artist = rs.getString(2);
-                String song = rs.getString(3);
-                String search = index+" "+artist+" "+song;
+                String artist = rs.getString(1);
+                String song = rs.getString(2);
+                String search = artist+" "+song;
                 System.out.println(search);
             }
         } catch (SQLException se) {
