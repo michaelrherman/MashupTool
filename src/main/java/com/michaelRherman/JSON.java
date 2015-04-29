@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.LinkedList;
 
 public class JSON {
 
@@ -25,10 +26,13 @@ public class JSON {
     protected static Double tempo;
     protected static Double timeSignature;
 
-    public static void getEchonestResponse(String url) throws Exception {
+    public static LinkedList<Song> getEchonestResponse(String url) throws Exception {
+
+        LinkedList<Song> songs = new LinkedList<Song>();
+
     /* Adapted from http://docs.oracle.com/javase/tutorial/networking/urls/readingURL.html
     *  and https://code.google.com/p/json-simple/wiki/DecodingExamples */
-        try {
+          try {
             URL echoNest = new URL(url); //Takes URL it is fed
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(echoNest.openStream())); //Reads the code found at that URL line-by-line
@@ -50,7 +54,14 @@ public class JSON {
         } catch (MalformedURLException mue) {
             System.out.println(mue); //Shouldn't be necessary but it's here in case.
         }
-//    return echonestResponse;
+
+        for (int x = 0 ; x < echonestResponse.size() ; x++) {
+            JSONArtistSongInfo(echonestResponse);
+            Song song = new Song(artistID, artistName, songID, songName);
+            songs.add(song);
+        }
+
+    return songs;
     }
 
      public static void JSONArtistSongInfo(JSONObject jsonObject) {
