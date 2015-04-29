@@ -1,6 +1,9 @@
 package com.michaelRherman;
 
-import org.json.simple.JSONObject;
+import org.json.simple.*;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
@@ -23,33 +26,41 @@ public class JSON {
     protected static Double timeSignature;
 
     public static void getEchonestResponse(String url) throws Exception {
-    /* Adapted from http://docs.oracle.com/javase/tutorial/networking/urls/readingURL.html */
+    /* Adapted from http://docs.oracle.com/javase/tutorial/networking/urls/readingURL.html
+    *  and https://code.google.com/p/json-simple/wiki/DecodingExamples */
         try {
-            URL echoNest = new URL(url);
+            URL echoNest = new URL(url); //Takes URL it is fed
             BufferedReader in = new BufferedReader(
-                    new InputStreamReader(echoNest.openStream()));
-            String echonestResponseString;
-            while ((echonestResponseString = in.readLine()) != null)
-                System.out.println(echonestResponseString);
+                    new InputStreamReader(echoNest.openStream())); //Reads the code found at that URL line-by-line
+            String echonestResponseString; //The code there will be one line long and we briefly store it as a string
+            while ((echonestResponseString = in.readLine()) != null) {
+//                System.out.println(echonestResponseString);
+                JSONParser parser = new JSONParser();
+
+                try{
+                    echonestResponse = (JSONObject) parser.parse(echonestResponseString); //Parser.parse will parse the string into a JSONObject
+                }
+                catch(ParseException pe){
+                    System.out.println("position: " + pe.getPosition());
+                    System.out.println(pe);
+                }
+            }
             in.close();
+
         } catch (MalformedURLException mue) {
             System.out.println(mue); //Shouldn't be necessary but it's here in case.
         }
 //    return echonestResponse;
     }
 
-     public static void JSONArtistSongInfo(JSONObject echonestJSON) {
-
-         echonestResponse = echonestJSON;
+     public static void JSONArtistSongInfo(JSONObject jsonObject) {
          artistID = (String) echonestResponse.get("artist_id");
          songID = (String) echonestResponse.get("id");
          artistName = (String) echonestResponse.get("artist_name");
          songName = (String) echonestResponse.get("title");
     }
 
-    public static void JSONSongDetailsInfo(JSONObject echnonestJSON) {
-
-        echonestResponse = echnonestJSON;
+    public static void JSONSongDetailsInfo(JSONObject jsonObject) {
         danceability = Double.valueOf((String) echonestResponse.get("danceability"));
         duration = Double.valueOf((String) echonestResponse.get("duration"));
         energy = Double.valueOf((String) echonestResponse.get("energy"));
