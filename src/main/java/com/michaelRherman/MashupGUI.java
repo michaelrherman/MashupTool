@@ -22,6 +22,10 @@ public class MashupGUI extends JFrame {
     private JScrollPane result2Scroll;
     private JPanel result1Panel;
     private JPanel result2Panel;
+    private JButton compareButton;
+    private JButton playButton1;
+    private JButton playButton2;
+    private JComboBox setSway;
 
     private static String artistSearch1;
     private static String songSearch1;
@@ -77,6 +81,18 @@ public class MashupGUI extends JFrame {
                 result2Panel.setVisible(true);
                 result2Scroll.setVisible(true);
                 result2List.setVisible(true);
+            }
+        });
+
+        /*Adapted from https://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html &
+        * https://docs.oracle.com/javase/8/docs/api/javax/swing/JOptionPane.html &
+        * https://docs.oracle.com/javase/8/docs/api/javax/swing/JDialog.html*/
+
+        compareButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                JOptionPane.showMessageDialog(null, "Comparison between "+artistSearch1+" "+songSearch1+
+                        " "+artistSearch2+" "+songSearch2, "Comparison", JOptionPane.INFORMATION_MESSAGE);
             }
         });
     }
