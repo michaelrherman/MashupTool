@@ -122,5 +122,31 @@ public class MashupGUI extends JFrame {
                         " "+artistSearch2+" "+songSearch2+"\n"+"New line", "Comparison", JOptionPane.INFORMATION_MESSAGE);
             }
         });
+
+        //THIS IS THE PLAY BUTTON ON THE LEFT
+        playButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String spotifyID = "78J9MBkAoqfvyeEpQKJDzD";
+                try {
+                    Main.openDefaultBrowser(spotifyID);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            }
+        });
+
+        //THIS IS THE PLAY BUTTON ON THE RIGHT
+        playButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String spotifyID = "78J9MBkAoqfvyeEpQKJDzD";
+                try {
+                    Main.openDefaultBrowser(spotifyID);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            }
+        });
     }
 }

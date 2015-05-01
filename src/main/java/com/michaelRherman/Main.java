@@ -32,7 +32,7 @@ public class Main {
     public static void openDefaultBrowser(String searchTerm) throws Exception {
         try {
             if (Desktop.isDesktopSupported()) {
-                String url = "https://www.google.com/?gws_rd=ssl#q=";
+                String url = "https://play.spotify.com/track/";
                 String encodedUrl = url+URLEncoder.encode(searchTerm, "UTF-8"); //URLEncoder necessary to account for spaces, dashes, etc.
                 Desktop.getDesktop().browse(new URI(encodedUrl));
             }
