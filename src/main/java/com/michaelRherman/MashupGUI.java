@@ -3,6 +3,8 @@ package com.michaelRherman;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.lang.reflect.Array;
 import java.sql.SQLException;
 
 public class MashupGUI extends JFrame {
@@ -25,12 +27,18 @@ public class MashupGUI extends JFrame {
     private JButton compareButton;
     private JButton playButton1;
     private JButton playButton2;
-    private JComboBox setSway;
+    protected JComboBox<String> setSway;
 
     private static String artistSearch1;
     private static String songSearch1;
     private static String artistSearch2;
     private static String songSearch2;
+
+    private static final String Exact = "Exact";
+    private static final String Low = "Low";
+    private static final String Medium = "Medium";
+    private static final String High = "High";
+    protected static final String[] comboOptions = {Exact, Low, Medium, High};
 
     protected MashupGUI() {
         super("Mashup Helper");
@@ -38,6 +46,9 @@ public class MashupGUI extends JFrame {
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+
+        for (int x = 0; x < comboOptions.length; x++)
+        setSway.addItem((String) Array.get(comboOptions, x));
 
         okayButton.addActionListener(new ActionListener() {
             @Override
@@ -91,8 +102,24 @@ public class MashupGUI extends JFrame {
         compareButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                String toleranceSet = (String) setSway.getSelectedItem();
+
+                if (toleranceSet.equals("Exact")) {
+                    Compare.setSway(0);
+//                    System.out.println(Compare.getSway());
+                } else if (toleranceSet.equals("Low")) {
+                    Compare.setSway(5);
+//                    System.out.println(Compare.getSway());
+                } else if (toleranceSet.equals("Medium")) {
+                    Compare.setSway(15);
+//                    System.out.println(Compare.getSway());
+                } else if (toleranceSet.equals("High")) {
+                    Compare.setSway(30);
+//                    System.out.println(Compare.getSway());
+                }
+
                 JOptionPane.showMessageDialog(null, "Comparison between "+artistSearch1+" "+songSearch1+
-                        " "+artistSearch2+" "+songSearch2, "Comparison", JOptionPane.INFORMATION_MESSAGE);
+                        " "+artistSearch2+" "+songSearch2+"\n"+"New line", "Comparison", JOptionPane.INFORMATION_MESSAGE);
             }
         });
     }

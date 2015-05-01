@@ -5,8 +5,9 @@ public class Compare {
     private static int sway;
 
     public static boolean compareDoubles(Double double1, Double double2) {
-        Double min = double1 * (100-sway);
-        Double max = double1 * (100+sway);
+        sway = 0;
+        Double min = double1 * ((100-sway)/100);
+        Double max = double1 * ((100+sway)/100);
         if (sway == 0) {
             if (double1 == double2) {
                 return true;
@@ -22,7 +23,11 @@ public class Compare {
         }
     }
 
-    public void setSway(int sway) {
-        this.sway = sway;
+/*    public static int getSway() {
+        return sway;
+    }
+*/
+    public static void setSway(int sway) {
+        Compare.sway = sway;
     }
 }
