@@ -135,8 +135,8 @@ public class MashupGUI extends JFrame {
                 timeSignatureMatch = Compare.compareInteger(); //Will be simple match*/
 
                 JOptionPane.showMessageDialog(null, "Comparison between "+artistSearch1+" \""+songSearch1+
-                        "\" and "+artistSearch2+" \""+songSearch2+"\" \n"+danceabilityMatch+"\n"+durationMatch+"\n"+energyMatch
-                                +"\n"+harmonicKeyMatch+"\n"+modeMatch+"\n"+tempoMatch+"\n"+timeSignatureMatch,
+                        "\" and "+artistSearch2+" \""+songSearch2+"\" \n Danceability: "+danceabilityMatch+"\n Duration: "+durationMatch+"\n Energy: "+energyMatch
+                                +"\n Key: "+harmonicKeyMatch+"\n Major/Minor: "+modeMatch+"\n Tempo(BPM): "+tempoMatch+"\n Time Signature: "+timeSignatureMatch,
                         "Comparison", JOptionPane.INFORMATION_MESSAGE);
             }
         });

@@ -25,7 +25,7 @@ public class JSON {
     protected static Integer harmonicKey;
     protected static Integer mode;
     protected static Double tempo;
-    protected static Integer timeSignature;
+    protected static Double timeSignature;
 
     public static LinkedList<Song> getEchonestResponse(String url) throws Exception {
 
@@ -79,7 +79,7 @@ public class JSON {
         harmonicKey = Integer.valueOf((String) echonestResponse.get("key"));
         mode = Integer.valueOf((String) echonestResponse.get("mode"));
         tempo = Double.valueOf((String) echonestResponse.get("tempo"));
-        timeSignature = Integer.valueOf((String) echonestResponse.get("time_signature"));
+        timeSignature = Double.valueOf((String) echonestResponse.get("time_signature"));
     }
 }
 
