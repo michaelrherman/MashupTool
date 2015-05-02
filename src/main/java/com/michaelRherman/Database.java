@@ -26,11 +26,11 @@ public class Database {
                 statement.executeUpdate(createTableSQL);
                 System.out.println("Created table Searches");
 
-                createTableSQL = "CREATE TABLE Cache (Artist varchar(50), ArtistID varchar(18), Song varchar(50), SongID varchar (18))";
+                createTableSQL = "CREATE TABLE Cache (Artist varchar(50), ArtistID varchar(18), Song varchar(50), SongID varchar(18), SpotifyID varchar(18))";
                 statement.executeUpdate(createTableSQL);
                 System.out.println("Created table Cache");
 
-                createTableSQL = "CREATE TABLE Favorites (Artist varchar(50), ArtistID varchar(18), Song varchar(50), SongID varchar (18))";
+                createTableSQL = "CREATE TABLE Favorites (Artist varchar(50), ArtistID varchar(18), Song varchar(50), SongID varchar(18), SpotifyID varchar(18))";
                 statement.executeUpdate(createTableSQL);
                 System.out.println("Created table Favorites");
 

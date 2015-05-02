@@ -9,10 +9,10 @@ public class SongDetails extends Song {
     private Double tempo;
     private Double timeSignature;
 
-    public SongDetails(String artistID, String artistName, String songID, String songTitle, Double danceability,
+    public SongDetails(String artistID, String artistName, String songID, String songTitle, String spotifyID, Double danceability,
                        Double duration, Double energy, Integer harmonicKey, Integer mode, Double tempo, Double timeSignature) {
 
-        super(artistID, artistName, songID, songTitle);
+        super(artistID, artistName, songID, songTitle, spotifyID);
     }
 
     public Double getDanceability() {

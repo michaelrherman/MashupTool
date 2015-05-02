@@ -17,6 +17,7 @@ public class JSON {
     protected static String songID;
     protected static String artistName;
     protected static String songName;
+    protected static String spotifyID;
 
     protected static Double danceability;
     protected static Double duration;
@@ -24,7 +25,7 @@ public class JSON {
     protected static Integer harmonicKey;
     protected static Integer mode;
     protected static Double tempo;
-    protected static Double timeSignature;
+    protected static Integer timeSignature;
 
     public static LinkedList<Song> getEchonestResponse(String url) throws Exception {
 
@@ -57,7 +58,7 @@ public class JSON {
 
         for (int x = 0 ; x < echonestResponse.size() ; x++) {
             JSONArtistSongInfo(echonestResponse);
-            Song song = new Song(artistID, artistName, songID, songName);
+            Song song = new Song(artistID, artistName, songID, songName, spotifyID);
             songs.add(song);
         }
 
@@ -78,7 +79,7 @@ public class JSON {
         harmonicKey = Integer.valueOf((String) echonestResponse.get("key"));
         mode = Integer.valueOf((String) echonestResponse.get("mode"));
         tempo = Double.valueOf((String) echonestResponse.get("tempo"));
-        timeSignature = Double.valueOf((String) echonestResponse.get("time_signature"));
+        timeSignature = Integer.valueOf((String) echonestResponse.get("time_signature"));
     }
 }
 

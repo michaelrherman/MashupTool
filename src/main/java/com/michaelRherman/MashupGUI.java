@@ -40,6 +40,14 @@ public class MashupGUI extends JFrame {
     private static final String High = "High";
     protected static final String[] comboOptions = {Exact, Low, Medium, High};
 
+    private static boolean danceabilityMatch;
+    private static boolean durationMatch;
+    private static boolean energyMatch;
+    private static boolean harmonicKeyMatch; //Will be simple match
+    private static boolean modeMatch; //Will be simple match
+    private static boolean tempoMatch;
+    private static boolean timeSignatureMatch; //Will be simple match
+
     protected MashupGUI() {
         super("Mashup Helper");
         setContentPane(rootPanel);
@@ -118,8 +126,18 @@ public class MashupGUI extends JFrame {
 //                    System.out.println(Compare.getSway());
                 }
 
-                JOptionPane.showMessageDialog(null, "Comparison between "+artistSearch1+" "+songSearch1+
-                        " "+artistSearch2+" "+songSearch2+"\n"+"New line", "Comparison", JOptionPane.INFORMATION_MESSAGE);
+/*                danceabilityMatch = Compare.compareDoubles();
+                durationMatch = Compare.compareDoubles();
+                energyMatch = Compare.compareDoubles();
+                harmonicKeyMatch = Compare.compareInteger(); //Will be simple match
+                modeMatch = Compare.compareInteger(); //Will be simple match
+                tempoMatch = Compare.compareDoubles();
+                timeSignatureMatch = Compare.compareInteger(); //Will be simple match*/
+
+                JOptionPane.showMessageDialog(null, "Comparison between "+artistSearch1+" \""+songSearch1+
+                        "\" and "+artistSearch2+" \""+songSearch2+"\" \n"+danceabilityMatch+"\n"+durationMatch+"\n"+energyMatch
+                                +"\n"+harmonicKeyMatch+"\n"+modeMatch+"\n"+tempoMatch+"\n"+timeSignatureMatch,
+                        "Comparison", JOptionPane.INFORMATION_MESSAGE);
             }
         });
 

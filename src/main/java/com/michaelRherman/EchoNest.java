@@ -9,7 +9,7 @@ public class EchoNest {
     private static String url;
 
     public static String prepareEchoNest(String artistSearch, String songSearch) {
-        try {
+        try { //TODO Change url to query with Spotify bucket to get Spotify IDs
 //            if (Desktop.isDesktopSupported()) { //Commented out code in this section was a part of testing.
                 if (artistSearch !=null && songSearch !=null) {
                     artistSearch = URLEncoder.encode(artistSearch, "UTF-8"); //URLEncoder necessary to account for spaces, dashes, etc.

@@ -5,8 +5,9 @@ public class Song {
     private String artistName;
     private String songID;
     private String songTitle;
+    private String spotifyID;
 
-    public Song(String artistID, String artistName, String songID, String songTitle) {
+    public Song(String artistID, String artistName, String songID, String songTitle, String spotifyID) {
     }
 
     public String getArtistID() {
@@ -39,5 +40,13 @@ public class Song {
 
     public void setSongTitle(String songTitle) {
         this.songTitle = songTitle;
+    }
+
+    public String getSpotifyID() {
+        return spotifyID;
+    }
+
+    public void setSpotifyID(String spotifyID) {
+        this.spotifyID = spotifyID;
     }
 }
