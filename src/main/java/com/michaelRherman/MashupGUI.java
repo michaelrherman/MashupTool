@@ -110,6 +110,14 @@ public class MashupGUI extends JFrame {
                 result2Panel.setVisible(true);
                 result2Scroll.setVisible(true);
                 result2List.setVisible(true);
+
+                if (artistField1.getText().equals("Bruno Mars") && songField1.getText().equals("Uptown Funk")) {
+                    JOptionPane.showMessageDialog(null, "Warning: Uptown Funk is by Mark Ronson, not Bruno Mars.",
+                            "Uptown Funk", JOptionPane.ERROR_MESSAGE);
+                } else if (artistField2.getText().equals("Bruno Mars") && songField2.getText().equals("Uptown Funk")) {
+                    JOptionPane.showMessageDialog(null, "Warning: Uptown Funk is by Mark Ronson, not Bruno Mars.",
+                            "Uptown Funk", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -145,19 +153,18 @@ public class MashupGUI extends JFrame {
                 try {
                     SongDetails leftSongDetails = JSON.getEchonestResponseDetails(EchoNest.echonestInfo(selectionLeftArray[3]));
                     SongDetails rightSongDetails = JSON.getEchonestResponseDetails(EchoNest.echonestInfo(selectionRightArray[3]));
-                    System.out.println(leftSongDetails.getArtistName());
-                    System.out.println(rightSongDetails.getArtistName());
+//                    System.out.println(leftSongDetails.getArtistName());
+//                    System.out.println(rightSongDetails.getArtistName());
+                    danceabilityMatch = Compare.compareDoubles(leftSongDetails.getDanceability(), rightSongDetails.getDanceability());
+                    durationMatch = Compare.compareDoubles(leftSongDetails.getDuration(), rightSongDetails.getDuration());
+                    energyMatch = Compare.compareDoubles(leftSongDetails.getEnergy(), rightSongDetails.getEnergy());
+                    harmonicKeyMatch = Compare.compareLong(leftSongDetails.getHarmonicKey(), rightSongDetails.getHarmonicKey()); //Will be simple match
+                    modeMatch = Compare.compareLong(leftSongDetails.getMode(), rightSongDetails.getMode()); //Will be simple match
+                    tempoMatch = Compare.compareDoubles(leftSongDetails.getTempo(), rightSongDetails.getTempo());
+                    timeSignatureMatch = Compare.compareLong(leftSongDetails.getTimeSignature(), rightSongDetails.getTimeSignature()); //Will be simple match
                 } catch (Exception e) {
                     System.out.println(e);
                 }
-
-/*                danceabilityMatch = Compare.compareDoubles();
-                durationMatch = Compare.compareDoubles();
-                energyMatch = Compare.compareDoubles();
-                harmonicKeyMatch = Compare.compareInteger(); //Will be simple match
-                modeMatch = Compare.compareInteger(); //Will be simple match
-                tempoMatch = Compare.compareDoubles();
-                timeSignatureMatch = Compare.compareInteger(); //Will be simple match*/
 
                 JOptionPane.showMessageDialog(null, "Comparison between "+selectionLeftArray[1]+" "+selectionLeftArray[2]+
                         " and "+selectionRightArray[1]+" "+selectionRightArray[2]+" \n Danceability: "+danceabilityMatch+"\n Duration: "+durationMatch+"\n Energy: "+energyMatch

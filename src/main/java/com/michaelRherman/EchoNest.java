@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.*;
 
 public class EchoNest {
-
+    //See http://developer.echonest.com/raw_tutorials/faqs/faq_04.html for more info about the queries formed here//
     private static String keyAPI;
     private static String url;
 
@@ -31,7 +31,12 @@ public class EchoNest {
 //        } catch (URISyntaxException USE) {
 //            System.out.println(USE);
         } catch (IOException IOE) {
-            System.out.println(IOE);
+            System.out.println("There was a problem talking to EchoNest.");
+            if (IOE.toString().contains("400 for URL")) {
+                System.out.println("It was on the user side");
+            } else if (IOE.toString().contains("500 for URL")) {
+                System.out.println("It was on the server side");
+            }
         } catch (Exception E) {
             System.out.println(E);
         }

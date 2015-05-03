@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.LinkedList;
 
 public class JSON {
+    //See http://developer.echonest.com/raw_tutorials/faqs/faq_04.html for more info about the parameters returned here//
 
     protected static JSONObject echonestResponse;
     protected static JSONObject responseObject;

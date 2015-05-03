@@ -5,7 +5,6 @@ public class Compare {
     private static int sway;
 
     public static boolean compareDoubles(Double double1, Double double2) {
-        sway = 0;
         Double min = double1 * ((100-sway)/100);
         Double max = double1 * ((100+sway)/100);
         if (sway == 0) {
@@ -23,13 +22,13 @@ public class Compare {
         }
     }
 
-/*    public static boolean compareInteger(Integer integer1, Integer integer2) {
-        if (integer1 == integer2) {
+    public static boolean compareLong(Long long1, Long long2) {
+        if (long1 == long2) {
             return true;
         } else {
             return false;
         }
-    }*/
+    }
 /*    public static int getSway() {
         return sway;
     }
