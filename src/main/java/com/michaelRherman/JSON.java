@@ -13,11 +13,15 @@ import java.util.LinkedList;
 public class JSON {
 
     protected static JSONObject echonestResponse;
+    protected static JSONObject responseObject;
+    protected static JSONArray songArray;
+
     protected static String artistID;
     protected static String songID;
     protected static String artistName;
     protected static String songName;
     protected static String spotifyID;
+    protected static Song song;
 
     protected static Double danceability;
     protected static Double duration;
@@ -42,8 +46,11 @@ public class JSON {
 //                System.out.println(echonestResponseString);
                 JSONParser parser = new JSONParser();
 
+                //Adapted from http://stackoverflow.com/questions/18899232/how-to-parse-the-this-json-response-in-java//
                 try{
                     echonestResponse = (JSONObject) parser.parse(echonestResponseString); //Parser.parse will parse the string into a JSONObject
+                    responseObject = (JSONObject) echonestResponse.get("response");
+                    songArray = (JSONArray) responseObject.get("songs");
                 }
                 catch(ParseException pe){
                     System.out.println("position: " + pe.getPosition());
@@ -56,30 +63,32 @@ public class JSON {
             System.out.println(mue); //Shouldn't be necessary but it's here in case.
         }
 
-        for (int x = 0 ; x < echonestResponse.size() ; x++) {
-            JSONArtistSongInfo(echonestResponse);
-            Song song = new Song(artistID, artistName, songID, songName, spotifyID);
+        for (int x = 0 ; x < songArray.size() ; x++) {
+            song = JSONArtistSongInfo((JSONObject) songArray.get(x));
             songs.add(song);
         }
 
     return songs;
     }
 
-     public static void JSONArtistSongInfo(JSONObject jsonObject) {
-         artistID = (String) echonestResponse.get("artist_id");
-         songID = (String) echonestResponse.get("id");
-         artistName = (String) echonestResponse.get("artist_name");
-         songName = (String) echonestResponse.get("title");
+     public static Song JSONArtistSongInfo(JSONObject jsonObject) {
+         artistID = (String) jsonObject.get("artist_id");
+         songID = (String) jsonObject.get("id");
+         artistName = (String) jsonObject.get("artist_name");
+         songName = (String) jsonObject.get("title");
+         spotifyID = "";
+         Song arraySong = new Song(artistID, artistName, songID, songName, spotifyID);
+         return arraySong;
     }
 
     public static void JSONSongDetailsInfo(JSONObject jsonObject) {
-        danceability = Double.valueOf((String) echonestResponse.get("danceability"));
-        duration = Double.valueOf((String) echonestResponse.get("duration"));
-        energy = Double.valueOf((String) echonestResponse.get("energy"));
-        harmonicKey = Integer.valueOf((String) echonestResponse.get("key"));
-        mode = Integer.valueOf((String) echonestResponse.get("mode"));
-        tempo = Double.valueOf((String) echonestResponse.get("tempo"));
-        timeSignature = Double.valueOf((String) echonestResponse.get("time_signature"));
+        danceability = Double.valueOf((String) jsonObject.get("danceability"));
+        duration = Double.valueOf((String) jsonObject.get("duration"));
+        energy = Double.valueOf((String) jsonObject.get("energy"));
+        harmonicKey = Integer.valueOf((String) jsonObject.get("key"));
+        mode = Integer.valueOf((String) jsonObject.get("mode"));
+        tempo = Double.valueOf((String) jsonObject.get("tempo"));
+        timeSignature = Double.valueOf((String) jsonObject.get("time_signature"));
     }
 }
 

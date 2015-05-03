@@ -8,6 +8,11 @@ public class Song {
     private String spotifyID;
 
     public Song(String artistID, String artistName, String songID, String songTitle, String spotifyID) {
+        this.artistID = artistID;
+        this.artistName = artistName;
+        this.songID = songID;
+        this.songTitle = songTitle;
+        this.spotifyID = spotifyID;
     }
 
     public String getArtistID() {

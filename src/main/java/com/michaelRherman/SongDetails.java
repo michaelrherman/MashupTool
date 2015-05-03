@@ -13,6 +13,14 @@ public class SongDetails extends Song {
                        Double duration, Double energy, Integer harmonicKey, Integer mode, Double tempo, Double timeSignature) {
 
         super(artistID, artistName, songID, songTitle, spotifyID);
+
+        this.danceability = danceability;
+        this.energy = energy;
+        this.duration = duration;
+        this.harmonicKey = harmonicKey;
+        this.mode = mode;
+        this.tempo = tempo;
+        this.timeSignature = timeSignature;
     }
 
     public Double getDanceability() {
