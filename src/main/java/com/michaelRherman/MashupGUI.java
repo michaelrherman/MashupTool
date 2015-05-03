@@ -5,8 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Array;
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 public class MashupGUI extends JFrame {
+
+    private DefaultListModel<String> songDefaultListModelOne;
+    private DefaultListModel<String> songDefaultListModelTwo;
     private JPanel rootPanel;
     private JTextField artistField1;
     private JLabel artistLabel1;
@@ -38,6 +42,9 @@ public class MashupGUI extends JFrame {
     private static final String Medium = "Medium";
     private static final String High = "High";
     protected static final String[] comboOptions = {Exact, Low, Medium, High};
+
+    protected static LinkedList<Song> ResponseOne;
+    protected static LinkedList<Song> ResponseTwo;
 
     private static boolean danceabilityMatch;
     private static boolean durationMatch;
@@ -82,8 +89,9 @@ public class MashupGUI extends JFrame {
                 try {
                     Database.insertSearch(artistSearch1, songSearch1); //Passes the search terms thru to the database to be stored
                     Database.insertSearch(artistSearch2, songSearch2);
-                    JSON.getEchonestResponse(EchoNest.prepareEchoNest(artistSearch1, songSearch1));
-                    JSON.getEchonestResponse(EchoNest.prepareEchoNest(artistSearch2, songSearch2));
+                    ResponseOne = JSON.getEchonestResponse(EchoNest.prepareEchoNest(artistSearch1, songSearch1));
+                    ResponseTwo = JSON.getEchonestResponse(EchoNest.prepareEchoNest(artistSearch2, songSearch2));
+                    displaySongs(ResponseOne, ResponseTwo);
                 } catch (SQLException se) {
                     System.out.println(se);
 //                } catch (URISyntaxException ue) {
@@ -165,5 +173,29 @@ public class MashupGUI extends JFrame {
                 }
             }
         });
+    }
+
+    public void displaySongs(LinkedList<Song> responseOne, LinkedList<Song> responseTwo) {
+        songDefaultListModelOne = new DefaultListModel<String>(); //Because we want to refresh the list each time,
+        result1List.setModel(songDefaultListModelOne);//we initialize each time this method is called.
+        result1List.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        int x = 1;
+        for (Song song: responseOne) {
+            String songString = x+" "+song.getArtistName()+" \""+song.getSongTitle()+"\"";
+            songDefaultListModelOne.addElement(songString);
+            x++;
+        }
+
+        songDefaultListModelTwo = new DefaultListModel<String>();
+        result2List.setModel(songDefaultListModelTwo);
+        result2List.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        x = 1;
+        for (Song song: responseTwo) {
+            String songString = x+" "+song.getArtistName()+" \""+song.getSongTitle()+"\"";
+            songDefaultListModelTwo.addElement(songString);
+            x++;
+        }
     }
 }
