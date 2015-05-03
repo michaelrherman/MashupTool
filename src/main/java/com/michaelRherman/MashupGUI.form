@@ -39,13 +39,6 @@
           <text value="Song"/>
         </properties>
       </component>
-      <vspacer id="bdbd">
-        <constraints>
-          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
-            <preferred-size width="-1" height="25"/>
-          </grid>
-        </constraints>
-      </vspacer>
       <vspacer id="a5d1">
         <constraints>
           <grid row="3" column="5" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
@@ -209,7 +202,9 @@
       </vspacer>
       <component id="b1142" class="javax.swing.JButton" binding="playButton1">
         <constraints>
-          <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <maximum-size width="100" height="-1"/>
+          </grid>
         </constraints>
         <properties>
           <text value="Play"/>
@@ -217,7 +212,9 @@
       </component>
       <component id="105cb" class="javax.swing.JButton" binding="playButton2">
         <constraints>
-          <grid row="7" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="7" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <maximum-size width="100" height="-1"/>
+          </grid>
         </constraints>
         <properties>
           <text value="Play"/>
@@ -272,6 +269,20 @@
           <text value="Set Tolerance"/>
         </properties>
       </component>
+      <hspacer id="3689a">
+        <constraints>
+          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="300" height="-1"/>
+          </grid>
+        </constraints>
+      </hspacer>
+      <hspacer id="7ab3b">
+        <constraints>
+          <grid row="3" column="4" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="300" height="-1"/>
+          </grid>
+        </constraints>
+      </hspacer>
     </children>
   </grid>
 </form>
