@@ -31,6 +31,8 @@ public class MashupGUI extends JFrame {
     private JButton playButton1;
     private JButton playButton2;
     protected JComboBox<String> setSway;
+    private JButton favoriteButton1;
+    private JButton favoriteButton2;
 
     private static String artistSearch1;
     private static String songSearch1;
@@ -141,8 +143,13 @@ public class MashupGUI extends JFrame {
                 tempoMatch = Compare.compareDoubles();
                 timeSignatureMatch = Compare.compareInteger(); //Will be simple match*/
 
-                JOptionPane.showMessageDialog(null, "Comparison between "+artistSearch1+" \""+songSearch1+
-                        "\" and "+artistSearch2+" \""+songSearch2+"\" \n Danceability: "+danceabilityMatch+"\n Duration: "+durationMatch+"\n Energy: "+energyMatch
+                String selectionLeft = (String) result1List.getSelectedValue(); //getSelectedValue returns an object
+                String selectionRight = (String) result2List.getSelectedValue(); //so these are cast to String
+                String[] selectionLeftArray = selectionLeft.split(":");
+                String[] selectionRightArray = selectionRight.split(":");
+
+                JOptionPane.showMessageDialog(null, "Comparison between "+selectionLeftArray[1]+" "+selectionLeftArray[2]+
+                        " and "+selectionRightArray[1]+" "+selectionRightArray[2]+" \n Danceability: "+danceabilityMatch+"\n Duration: "+durationMatch+"\n Energy: "+energyMatch
                                 +"\n Key: "+harmonicKeyMatch+"\n Major/Minor: "+modeMatch+"\n Tempo(BPM): "+tempoMatch+"\n Time Signature: "+timeSignatureMatch,
                         "Comparison", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -182,7 +189,7 @@ public class MashupGUI extends JFrame {
 
         int x = 1;
         for (Song song: responseOne) {
-            String songString = x+" "+song.getArtistName()+" \""+song.getSongTitle()+"\"";
+            String songString = x+": "+song.getArtistName()+": \""+song.getSongTitle()+"\" :"+song.getSongID()+":"+song.getArtistID();
             songDefaultListModelOne.addElement(songString);
             x++;
         }
@@ -193,7 +200,7 @@ public class MashupGUI extends JFrame {
 
         x = 1;
         for (Song song: responseTwo) {
-            String songString = x+" "+song.getArtistName()+" \""+song.getSongTitle()+"\"";
+            String songString = x+": "+song.getArtistName()+": \""+song.getSongTitle()+"\" :"+song.getSongID()+":"+song.getArtistID();
             songDefaultListModelTwo.addElement(songString);
             x++;
         }

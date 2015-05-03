@@ -53,7 +53,7 @@ public class Database {
             psInsert.setString(2, songSearch);
             psInsert.executeUpdate();
 
-            printSearches();
+//            printSearches();
 
         } catch (SQLException se) {
             closeDatabase();
