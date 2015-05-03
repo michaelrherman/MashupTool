@@ -66,6 +66,7 @@ public class MashupGUI extends JFrame {
         for (int x = 0; x < comboOptions.length; x++)
         setSway.addItem((String) Array.get(comboOptions, x));
 
+        //This is the OK button
         okayButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -91,8 +92,8 @@ public class MashupGUI extends JFrame {
                 try {
                     Database.insertSearch(artistSearch1, songSearch1); //Passes the search terms thru to the database to be stored
                     Database.insertSearch(artistSearch2, songSearch2);
-                    ResponseOne = JSON.getEchonestResponse(EchoNest.prepareEchoNest(artistSearch1, songSearch1));
-                    ResponseTwo = JSON.getEchonestResponse(EchoNest.prepareEchoNest(artistSearch2, songSearch2));
+                    ResponseOne = JSON.getEchonestResponseInitial(EchoNest.prepareEchoNest(artistSearch1, songSearch1));
+                    ResponseTwo = JSON.getEchonestResponseInitial(EchoNest.prepareEchoNest(artistSearch2, songSearch2));
                     displaySongs(ResponseOne, ResponseTwo);
                 } catch (SQLException se) {
                     System.out.println(se);
@@ -116,6 +117,7 @@ public class MashupGUI extends JFrame {
         * https://docs.oracle.com/javase/8/docs/api/javax/swing/JOptionPane.html &
         * https://docs.oracle.com/javase/8/docs/api/javax/swing/JDialog.html*/
 
+        //This is the Compare button
         compareButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -135,6 +137,20 @@ public class MashupGUI extends JFrame {
 //                    System.out.println(Compare.getSway());
                 }
 
+                String selectionLeft = (String) result1List.getSelectedValue(); //getSelectedValue returns an object
+                String selectionRight = (String) result2List.getSelectedValue(); //so these are cast to String
+                String[] selectionLeftArray = selectionLeft.split(":");
+                String[] selectionRightArray = selectionRight.split(":");
+
+                try {
+                    SongDetails leftSongDetails = JSON.getEchonestResponseDetails(EchoNest.echonestInfo(selectionLeftArray[3]));
+                    SongDetails rightSongDetails = JSON.getEchonestResponseDetails(EchoNest.echonestInfo(selectionRightArray[3]));
+                    System.out.println(leftSongDetails.getArtistName());
+                    System.out.println(rightSongDetails.getArtistName());
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+
 /*                danceabilityMatch = Compare.compareDoubles();
                 durationMatch = Compare.compareDoubles();
                 energyMatch = Compare.compareDoubles();
@@ -142,11 +158,6 @@ public class MashupGUI extends JFrame {
                 modeMatch = Compare.compareInteger(); //Will be simple match
                 tempoMatch = Compare.compareDoubles();
                 timeSignatureMatch = Compare.compareInteger(); //Will be simple match*/
-
-                String selectionLeft = (String) result1List.getSelectedValue(); //getSelectedValue returns an object
-                String selectionRight = (String) result2List.getSelectedValue(); //so these are cast to String
-                String[] selectionLeftArray = selectionLeft.split(":");
-                String[] selectionRightArray = selectionRight.split(":");
 
                 JOptionPane.showMessageDialog(null, "Comparison between "+selectionLeftArray[1]+" "+selectionLeftArray[2]+
                         " and "+selectionRightArray[1]+" "+selectionRightArray[2]+" \n Danceability: "+danceabilityMatch+"\n Duration: "+durationMatch+"\n Energy: "+energyMatch

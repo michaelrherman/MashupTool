@@ -23,13 +23,13 @@ public class Compare {
         }
     }
 
-    public static boolean compareInteger(Integer integer1, Integer integer2) {
+/*    public static boolean compareInteger(Integer integer1, Integer integer2) {
         if (integer1 == integer2) {
             return true;
         } else {
             return false;
         }
-    }
+    }*/
 /*    public static int getSway() {
         return sway;
     }

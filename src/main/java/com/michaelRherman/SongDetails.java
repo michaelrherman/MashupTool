@@ -4,13 +4,13 @@ public class SongDetails extends Song {
     private Double danceability;
     private Double duration;
     private Double energy;
-    private Integer harmonicKey;
-    private Integer mode;
+    private Long harmonicKey;
+    private Long mode;
     private Double tempo;
-    private Double timeSignature;
+    private Long timeSignature;
 
     public SongDetails(String artistID, String artistName, String songID, String songTitle, String spotifyID, Double danceability,
-                       Double duration, Double energy, Integer harmonicKey, Integer mode, Double tempo, Double timeSignature) {
+                       Double duration, Double energy, Long harmonicKey, Long mode, Double tempo, Long timeSignature) {
 
         super(artistID, artistName, songID, songTitle, spotifyID);
 
@@ -47,19 +47,19 @@ public class SongDetails extends Song {
         this.energy = energy;
     }
 
-    public Integer getHarmonicKey() {
+    public Long getHarmonicKey() {
         return harmonicKey;
     }
 
-    public void setHarmonicKey(Integer harmonicKey) {
+    public void setHarmonicKey(Long harmonicKey) {
         this.harmonicKey = harmonicKey;
     }
 
-    public Integer getMode() {
+    public Long getMode() {
         return mode;
     }
 
-    public void setMode(Integer mode) {
+    public void setMode(Long mode) {
         this.mode = mode;
     }
 
@@ -71,11 +71,11 @@ public class SongDetails extends Song {
         this.tempo = tempo;
     }
 
-    public Double getTimeSignature() {
+    public Long getTimeSignature() {
         return timeSignature;
     }
 
-    public void setTimeSignature(Double timeSignature) {
+    public void setTimeSignature(Long timeSignature) {
         this.timeSignature = timeSignature;
     }
 }

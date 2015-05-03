@@ -38,8 +38,13 @@ public class EchoNest {
     return url;
     }
 
-    public static void echonestInfo(String searchTerm) {
-        //TODO Have this system build the song info query to EchoNest
+    public static String echonestInfo(String echonestID) {
+        try {
+            url = "http://developer.echonest.com/api/v4/song/profile?api_key="+keyAPI+"&id="+echonestID+"&bucket=audio_summary";
+        } catch (Exception E) {
+            System.out.println(E);
+        }
+        return url;
     }
 
     public static void setKeyAPI(String keyAPI) {
