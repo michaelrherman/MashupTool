@@ -5,7 +5,9 @@
     <constraints>
       <xy x="20" y="20" width="928" height="357"/>
     </constraints>
-    <properties/>
+    <properties>
+      <focusTraversalPolicyProvider value="false"/>
+    </properties>
     <border type="none"/>
     <children>
       <component id="dd45a" class="javax.swing.JLabel" binding="artistLabel1">

@@ -102,7 +102,10 @@ public class MashupGUI extends JFrame {
                         songSearch1 = null;
                     }
                 } else {
-                    System.out.println("Something else happens");
+                    String favoriteBox1String = (String)favoriteBox1.getSelectedItem();
+                    String[] favorite1array = favoriteBox1String.split("-");
+                    artistSearch1 = favorite1array[0];
+                    songSearch1 = favorite1array[1];
                 }
 
                 if (favoriteBox2.getSelectedItem().equals("Favorites")) {
@@ -115,7 +118,10 @@ public class MashupGUI extends JFrame {
                         songSearch2 = null;
                     }
                 } else {
-                    System.out.println("Something else happens");
+                    String favoriteBox2String = (String)favoriteBox2.getSelectedItem();
+                    String[] favorite2array = favoriteBox2String.split("-");
+                    artistSearch2 = favorite2array[0];
+                    songSearch2 = favorite2array[1];
                 }
 //                System.out.println(artistSearch);
 //                System.out.println(songSearch);
@@ -177,8 +183,8 @@ public class MashupGUI extends JFrame {
 
                 String selectionLeft = (String) result1List.getSelectedValue(); //getSelectedValue returns an object
                 String selectionRight = (String) result2List.getSelectedValue(); //so these are cast to String
-                String[] selectionLeftArray = selectionLeft.split(":");
-                String[] selectionRightArray = selectionRight.split(":");
+                String[] selectionLeftArray = selectionLeft.split("-");
+                String[] selectionRightArray = selectionRight.split("-");
 
                 try {
                     SongDetails leftSongDetails = JSON.getEchonestResponseDetails(EchoNest.echonestInfo(selectionLeftArray[3]));
@@ -208,7 +214,7 @@ public class MashupGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String selectionLeft = (String) result1List.getSelectedValue();
-                String[] selectionLeftArray = selectionLeft.split(":");
+                String[] selectionLeftArray = selectionLeft.split("-");
                 try {
                     spotifyID = JSON.getSpotifyID(EchoNest.getSpotifyID(selectionLeftArray[1], selectionLeftArray[2]));
                     Main.openDefaultBrowser(spotifyID);
@@ -229,7 +235,7 @@ public class MashupGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String selectionRight = (String) result2List.getSelectedValue();
-                String[] selectionRightArray = selectionRight.split(":");
+                String[] selectionRightArray = selectionRight.split("-");
                 try {
                     spotifyID = JSON.getSpotifyID(EchoNest.getSpotifyID(selectionRightArray[1],selectionRightArray[2]));
                     Main.openDefaultBrowser(spotifyID);
@@ -250,7 +256,7 @@ public class MashupGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String selectionLeft = (String) result1List.getSelectedValue(); //getSelectedValue returns an object so cast to String
-                String[] selectionLeftArray = selectionLeft.split(":");
+                String[] selectionLeftArray = selectionLeft.split("-");
                 String Artist = selectionLeftArray[1];
                 String Song = selectionLeftArray[2];
                 String SongID = selectionLeftArray[3];
@@ -264,7 +270,7 @@ public class MashupGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String selectionRight = (String) result2List.getSelectedValue(); //getSelectedValue returns an object so cast to String
-                String[] selectionRightArray = selectionRight.split(":");
+                String[] selectionRightArray = selectionRight.split("-");
                 String Artist = selectionRightArray[1];
                 String Song = selectionRightArray[2];
                 String SongID = selectionRightArray[3];
@@ -281,7 +287,7 @@ public class MashupGUI extends JFrame {
 
         int x = 1;
         for (Song song: responseOne) {
-            String songString = x+":"+song.getArtistName()+":"+song.getSongTitle()+":"+song.getSongID()+":"+song.getArtistID();
+            String songString = x+"-"+song.getArtistName()+"-"+song.getSongTitle()+"-"+song.getSongID()+"-"+song.getArtistID();
             songDefaultListModelOne.addElement(songString);
             x++;
         }
@@ -292,7 +298,7 @@ public class MashupGUI extends JFrame {
 
         x = 1;
         for (Song song: responseTwo) {
-            String songString = x+":"+song.getArtistName()+":"+song.getSongTitle()+":"+song.getSongID()+":"+song.getArtistID();
+            String songString = x+"-"+song.getArtistName()+"-"+song.getSongTitle()+"-"+song.getSongID()+"-"+song.getArtistID();
             songDefaultListModelTwo.addElement(songString);
             x++;
         }
