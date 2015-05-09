@@ -91,22 +91,31 @@ public class MashupGUI extends JFrame {
         okayButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                artistSearch1 = artistField1.getText();
-                if (artistSearch1.length()==0) {
-                    artistSearch1 = null;
-                }
-                songSearch1 = songField1.getText();
-                if (songSearch1.length()==0) {
-                    songSearch1 = null;
+
+                if (favoriteBox1.getSelectedItem().equals("Favorites")) {
+                    artistSearch1 = artistField1.getText();
+                    if (artistSearch1.length() == 0) {
+                        artistSearch1 = null;
+                    }
+                    songSearch1 = songField1.getText();
+                    if (songSearch1.length() == 0) {
+                        songSearch1 = null;
+                    }
+                } else {
+                    System.out.println("Something else happens");
                 }
 
-                artistSearch2 = artistField2.getText();
-                if (artistSearch2.length()==0) {
-                    artistSearch2 = null;
-                }
-                songSearch2 = songField2.getText();
-                if (songSearch2.length()==0) {
-                    songSearch2 = null;
+                if (favoriteBox2.getSelectedItem().equals("Favorites")) {
+                    artistSearch2 = artistField2.getText();
+                    if (artistSearch2.length() == 0) {
+                        artistSearch2 = null;
+                    }
+                    songSearch2 = songField2.getText();
+                    if (songSearch2.length() == 0) {
+                        songSearch2 = null;
+                    }
+                } else {
+                    System.out.println("Something else happens");
                 }
 //                System.out.println(artistSearch);
 //                System.out.println(songSearch);
