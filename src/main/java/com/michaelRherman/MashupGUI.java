@@ -201,8 +201,8 @@ public class MashupGUI extends JFrame {
                     modeMatch = Compare.compareLong(leftSongDetails.getMode(), rightSongDetails.getMode()); //Will be simple match
                     tempoMatch = Compare.compareDoubles(leftSongDetails.getTempo(), rightSongDetails.getTempo());
                     timeSignatureMatch = Compare.compareLong(leftSongDetails.getTimeSignature(), rightSongDetails.getTimeSignature()); //Will be simple match
-                    comparisonString = "Comparison between "+selectionLeftArray[1]+" "+selectionLeftArray[2]+
-                            " and "+selectionRightArray[1]+" "+selectionRightArray[2]+" \n Danceability: "+danceabilityMatch+"\n Duration: "+durationMatch+"\n Energy: "+energyMatch
+                    comparisonString = "Comparison between "+selectionLeftArray[1]+" \r\""+selectionLeftArray[2]+
+                            "\r\" and "+selectionRightArray[1]+" \r\""+selectionRightArray[2]+"\r\" \n Danceability: "+danceabilityMatch+"\n Duration: "+durationMatch+"\n Energy: "+energyMatch
                             +"\n Key: "+harmonicKeyMatch+"\n Major/Minor: "+modeMatch+"\n Tempo(BPM): "+tempoMatch+"\n Time Signature: "+timeSignatureMatch;
                 } catch (Exception e) {
                     System.out.println(e);
