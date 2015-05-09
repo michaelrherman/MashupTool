@@ -67,7 +67,7 @@ public class Database {
             psInsert.setString(3, SongID);
             psInsert.setString(4, ArtistID);
             psInsert.executeUpdate();
-            printFavorites();
+//            printFavorites();
 
         } catch (SQLException se) {
             closeDatabase();

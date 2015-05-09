@@ -35,6 +35,7 @@ public class MashupGUI extends JFrame {
     private JButton favoriteButton2;
     private JComboBox favoriteBox1;
     private JComboBox favoriteBox2;
+    private JButton redditButton;
 
     private static String artistSearch1;
     private static String songSearch1;
@@ -276,6 +277,14 @@ public class MashupGUI extends JFrame {
                 String SongID = selectionRightArray[3];
                 String ArtistID = selectionRightArray[4];
                 Database.insertFavorite(Artist, Song, SongID, ArtistID);
+            }
+        });
+
+        //THIS IS THE REDDIT BUTTON
+        redditButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                Reddit.postReddit();
             }
         });
     }

@@ -7,11 +7,12 @@ import java.io.BufferedReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
-import java.util.*;
 
 public class Main {
 
     private static String apiKey;
+    private static String redditUsername;
+    private static String redditPW;
 
     public static void main(String[] args) throws Exception {
 
@@ -19,10 +20,14 @@ public class Main {
             FileReader reader = new FileReader("keyAPI.txt");
             BufferedReader bufferedReader = new BufferedReader(reader);
             apiKey = bufferedReader.readLine();
+            redditUsername = bufferedReader.readLine();
+            redditPW = bufferedReader.readLine();
             reader.close();
             EchoNest.setKeyAPI(apiKey);
+            Reddit.setRedditUsername(redditUsername);
+            Reddit.setRedditPW(redditPW);
         } catch (Exception e) {
-            System.out.println("API key not present");
+            System.out.println("Necessary key not present");
         }
 
         Database.databaseInitialize(); //Sets up the database
