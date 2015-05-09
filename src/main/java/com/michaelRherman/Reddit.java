@@ -1,5 +1,6 @@
 package com.michaelRherman;
 
+import com.github.jreddit.action.SubmitActions;
 import com.github.jreddit.entity.User;
 import com.github.jreddit.utils.restclient.HttpRestClient;
 import com.github.jreddit.utils.restclient.RestClient;
@@ -8,7 +9,7 @@ public class Reddit {
     private static String redditUsername;
     private static String redditPW;
 
-    public static void postReddit(){
+    public static void postReddit(String artist1, String artist2, String comparisonString){
         // Initialize REST Client
         RestClient restClient = new HttpRestClient();
         restClient.setUserAgent("bot/1.0 by name");
@@ -21,7 +22,12 @@ public class Reddit {
             System.out.println(e);
         }
 
-        System.out.println("Hold here");
+        // Handle to SubmitActions, which offers the basic API functionality to submit comments and posts
+        SubmitActions submitActions = new SubmitActions(restClient, user);
+
+        // Submit a self post
+        submitActions.submitSelfPost(redditUsername+" compared "+artist1+" and "+artist2, comparisonString
+                , "MashupTool", null, null);
     }
 
     public static void setRedditUsername(String redditUsername) {

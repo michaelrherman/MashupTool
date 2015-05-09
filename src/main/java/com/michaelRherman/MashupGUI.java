@@ -35,7 +35,7 @@ public class MashupGUI extends JFrame {
     private JButton favoriteButton2;
     private JComboBox favoriteBox1;
     private JComboBox favoriteBox2;
-    private JButton redditButton;
+    private JCheckBox redditCheckBox;
 
     private static String artistSearch1;
     private static String songSearch1;
@@ -59,6 +59,7 @@ public class MashupGUI extends JFrame {
     private static boolean modeMatch; //Will be simple match
     private static boolean tempoMatch;
     private static boolean timeSignatureMatch; //Will be simple match
+    private static String comparisonString;
 
     private static String spotifyID;
 
@@ -167,6 +168,7 @@ public class MashupGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String toleranceSet = (String) setSway.getSelectedItem();
+                Boolean addtoReddit = redditCheckBox.isSelected();
 
                 if (toleranceSet.equals("Exact")) {
                     Compare.setSway(0);
@@ -199,14 +201,20 @@ public class MashupGUI extends JFrame {
                     modeMatch = Compare.compareLong(leftSongDetails.getMode(), rightSongDetails.getMode()); //Will be simple match
                     tempoMatch = Compare.compareDoubles(leftSongDetails.getTempo(), rightSongDetails.getTempo());
                     timeSignatureMatch = Compare.compareLong(leftSongDetails.getTimeSignature(), rightSongDetails.getTimeSignature()); //Will be simple match
+                    comparisonString = "Comparison between "+selectionLeftArray[1]+" "+selectionLeftArray[2]+
+                            " and "+selectionRightArray[1]+" "+selectionRightArray[2]+" \n Danceability: "+danceabilityMatch+"\n Duration: "+durationMatch+"\n Energy: "+energyMatch
+                            +"\n Key: "+harmonicKeyMatch+"\n Major/Minor: "+modeMatch+"\n Tempo(BPM): "+tempoMatch+"\n Time Signature: "+timeSignatureMatch;
                 } catch (Exception e) {
                     System.out.println(e);
                 }
 
-                JOptionPane.showMessageDialog(null, "Comparison between "+selectionLeftArray[1]+" "+selectionLeftArray[2]+
-                        " and "+selectionRightArray[1]+" "+selectionRightArray[2]+" \n Danceability: "+danceabilityMatch+"\n Duration: "+durationMatch+"\n Energy: "+energyMatch
-                                +"\n Key: "+harmonicKeyMatch+"\n Major/Minor: "+modeMatch+"\n Tempo(BPM): "+tempoMatch+"\n Time Signature: "+timeSignatureMatch,
-                        "Comparison", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, comparisonString, "Comparison", JOptionPane.INFORMATION_MESSAGE);
+
+                if (addtoReddit) {
+                    String artist1 = selectionLeftArray[1]+" "+selectionLeftArray[2];
+                    String artist2 = selectionRightArray[1]+" "+selectionRightArray[2];
+                    Reddit.postReddit(artist1, artist2, comparisonString);
+                }
             }
         });
 
@@ -277,14 +285,6 @@ public class MashupGUI extends JFrame {
                 String SongID = selectionRightArray[3];
                 String ArtistID = selectionRightArray[4];
                 Database.insertFavorite(Artist, Song, SongID, ArtistID);
-            }
-        });
-
-        //THIS IS THE REDDIT BUTTON
-        redditButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                Reddit.postReddit();
             }
         });
     }
