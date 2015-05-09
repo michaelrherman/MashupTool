@@ -161,8 +161,7 @@ public class JSON {
          songID = (String) jsonObject.get("id");
          artistName = (String) jsonObject.get("artist_name");
          songName = (String) jsonObject.get("title");
-         spotifyID = "";
-         Song arraySong = new Song(artistID, artistName, songID, songName, spotifyID);
+         Song arraySong = new Song(artistID, artistName, songID, songName);
          return arraySong;
     }
 
@@ -178,7 +177,7 @@ public class JSON {
         mode = Long.valueOf((Long) jsonSongDetailsObject.get("mode"));
         tempo = Double.valueOf((Double) jsonSongDetailsObject.get("tempo"));
         timeSignature = Long.valueOf((Long) jsonSongDetailsObject.get("time_signature"));
-        SongDetails songDetails = new SongDetails(artistID, artistName, songID, songName, spotifyID,
+        SongDetails songDetails = new SongDetails(artistID, artistName, songID, songName,
                 danceability, duration, energy, harmonicKey, mode, tempo, timeSignature);
         return songDetails;
     }

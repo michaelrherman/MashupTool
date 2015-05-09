@@ -26,11 +26,7 @@ public class Database {
                 statement.executeUpdate(createTableSQL);
                 System.out.println("Created table Searches");
 
-                createTableSQL = "CREATE TABLE Cache (Artist varchar(50), ArtistID varchar(18), Song varchar(50), SongID varchar(18), SpotifyID varchar(18))";
-                statement.executeUpdate(createTableSQL);
-                System.out.println("Created table Cache");
-
-                createTableSQL = "CREATE TABLE Favorites (Artist varchar(50), ArtistID varchar(18), Song varchar(50), SongID varchar(18), SpotifyID varchar(18))";
+                createTableSQL = "CREATE TABLE Favorites (Artist varchar(50), Song varchar(50),  SongID varchar(18), ArtistID varchar(18))";
                 statement.executeUpdate(createTableSQL);
                 System.out.println("Created table Favorites");
 
@@ -61,6 +57,24 @@ public class Database {
         }
     }
 
+    protected static void insertFavorite(String Artist, String Song, String SongID, String ArtistID ) {
+
+        try {
+            String prepStatInsert = "INSERT INTO Favorites VALUES ( ? , ? , ? , ?)";
+            psInsert = conn.prepareStatement(prepStatInsert);
+            psInsert.setString(1, Artist);
+            psInsert.setString(2, Song);
+            psInsert.setString(3, SongID);
+            psInsert.setString(4, ArtistID);
+            psInsert.executeUpdate();
+            printFavorites();
+
+        } catch (SQLException se) {
+            closeDatabase();
+            System.out.println(se);
+        }
+    }
+
     private static void printSearches() throws SQLException{
         try {
             String printAll = "Select * FROM Searches";
@@ -70,6 +84,25 @@ public class Database {
                 String artist = rs.getString(1);
                 String song = rs.getString(2);
                 String search = artist+" "+song;
+                System.out.println(search);
+            }
+        } catch (SQLException se) {
+            closeDatabase();
+            System.out.println(se);
+        }
+    }
+
+    private static void printFavorites() throws SQLException{
+        try {
+            String printAll = "Select * FROM Favorites";
+            rs = statement.executeQuery(printAll);
+
+            while (rs.next()) {
+                String artist = rs.getString(1);
+                String song = rs.getString(2);
+                String songID = rs.getString(3);
+                String artistID = rs.getString(4);
+                String search = artist+" "+song+" "+songID+" "+artistID;
                 System.out.println(search);
             }
         } catch (SQLException se) {

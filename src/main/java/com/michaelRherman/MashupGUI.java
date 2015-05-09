@@ -221,7 +221,13 @@ public class MashupGUI extends JFrame {
         favoriteButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
+                String selectionLeft = (String) result1List.getSelectedValue(); //getSelectedValue returns an object so cast to String
+                String[] selectionLeftArray = selectionLeft.split(":");
+                String Artist = selectionLeftArray[1];
+                String Song = selectionLeftArray[2];
+                String SongID = selectionLeftArray[3];
+                String ArtistID = selectionLeftArray[4];
+                Database.insertFavorite(Artist, Song, SongID, ArtistID);
             }
         });
 
@@ -229,7 +235,13 @@ public class MashupGUI extends JFrame {
         favoriteButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
+                String selectionRight = (String) result2List.getSelectedValue(); //getSelectedValue returns an object so cast to String
+                String[] selectionRightArray = selectionRight.split(":");
+                String Artist = selectionRightArray[1];
+                String Song = selectionRightArray[2];
+                String SongID = selectionRightArray[3];
+                String ArtistID = selectionRightArray[4];
+                Database.insertFavorite(Artist, Song, SongID, ArtistID);
             }
         });
     }
