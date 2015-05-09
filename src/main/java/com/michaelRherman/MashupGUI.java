@@ -56,6 +56,8 @@ public class MashupGUI extends JFrame {
     private static boolean tempoMatch;
     private static boolean timeSignatureMatch; //Will be simple match
 
+    private static String spotifyID;
+
     protected MashupGUI() {
         super("Mashup Helper");
         setContentPane(rootPanel);
@@ -177,8 +179,10 @@ public class MashupGUI extends JFrame {
         playButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                String spotifyID = "78J9MBkAoqfvyeEpQKJDzD";
+                String selectionLeft = (String) result1List.getSelectedValue();
+                String[] selectionLeftArray = selectionLeft.split(":");
                 try {
+                    spotifyID = JSON.getSpotifyID(EchoNest.getSpotifyID(selectionLeftArray[1], selectionLeftArray[2]));
                     Main.openDefaultBrowser(spotifyID);
                 } catch (Exception e) {
                     System.out.println(e);
@@ -190,8 +194,10 @@ public class MashupGUI extends JFrame {
         playButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                String spotifyID = "78J9MBkAoqfvyeEpQKJDzD";
+                String selectionRight = (String) result2List.getSelectedValue();
+                String[] selectionRightArray = selectionRight.split(":");
                 try {
+                    spotifyID = JSON.getSpotifyID(EchoNest.getSpotifyID(selectionRightArray[1],selectionRightArray[2]));
                     Main.openDefaultBrowser(spotifyID);
                 } catch (Exception e) {
                     System.out.println(e);
@@ -207,7 +213,7 @@ public class MashupGUI extends JFrame {
 
         int x = 1;
         for (Song song: responseOne) {
-            String songString = x+": "+song.getArtistName()+": \""+song.getSongTitle()+"\" :"+song.getSongID()+":"+song.getArtistID();
+            String songString = x+":"+song.getArtistName()+":"+song.getSongTitle()+":"+song.getSongID()+":"+song.getArtistID();
             songDefaultListModelOne.addElement(songString);
             x++;
         }
@@ -218,7 +224,7 @@ public class MashupGUI extends JFrame {
 
         x = 1;
         for (Song song: responseTwo) {
-            String songString = x+": "+song.getArtistName()+": \""+song.getSongTitle()+"\" :"+song.getSongID()+":"+song.getArtistID();
+            String songString = x+":"+song.getArtistName()+":"+song.getSongTitle()+":"+song.getSongID()+":"+song.getArtistID();
             songDefaultListModelTwo.addElement(songString);
             x++;
         }

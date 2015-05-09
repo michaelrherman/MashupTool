@@ -18,12 +18,17 @@ public class JSON {
     protected static JSONArray songArray;
     protected static JSONObject songObject;
     protected static JSONObject songObjectDetails;
+    protected static JSONObject spotifyObject;
+    protected static JSONArray spotifyArray;
+    protected static JSONObject trackObject;
 
     protected static String artistID;
     protected static String songID;
     protected static String artistName;
     protected static String songName;
     protected static String spotifyID;
+    protected static String spotifyIDString;
+    protected static String[] spotifyIDStringArray;
     protected static Song song;
 
     protected static Double danceability;
@@ -110,6 +115,45 @@ public class JSON {
 
         SongDetails songDetails = JSONSongDetailsInfo(songObject, songObjectDetails);
         return songDetails;
+    }
+
+    public static String getSpotifyID(String url) throws Exception {
+            /* Adapted from http://docs.oracle.com/javase/tutorial/networking/urls/readingURL.html
+    *  and https://code.google.com/p/json-simple/wiki/DecodingExamples */
+        try {
+            URL echoNest = new URL(url); //Takes URL it is fed
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(echoNest.openStream())); //Reads the code found at that URL line-by-line
+            String echonestResponseString; //The code there will be one line long and we briefly store it as a string
+            while ((echonestResponseString = in.readLine()) != null) {
+//                System.out.println(echonestResponseString);
+                JSONParser parser = new JSONParser();
+
+                //Adapted from http://stackoverflow.com/questions/18899232/how-to-parse-the-this-json-response-in-java//
+                //Spotify calls adapted from https://developer.spotify.com/technologies/widgets/spotify-play-button/ //
+                try{
+                    echonestResponse = (JSONObject) parser.parse(echonestResponseString); //Parser.parse will parse the string into a JSONObject
+                    responseObject = (JSONObject) echonestResponse.get("response");
+                    songArray = (JSONArray) responseObject.get("songs");
+                    spotifyObject = (JSONObject) songArray.get(0);
+                    spotifyArray = (JSONArray) spotifyObject.get("tracks");
+                    trackObject = (JSONObject) spotifyArray.get(0);
+                    spotifyIDString = trackObject.get("foreign_id").toString();
+                    spotifyIDStringArray = spotifyIDString.split(":");
+                    spotifyID = spotifyIDStringArray[2];
+//                    System.out.println(spotifyID);
+                }
+                catch(ParseException pe){
+                    System.out.println("position: " + pe.getPosition());
+                    System.out.println(pe);
+                }
+            }
+            in.close();
+
+        } catch (MalformedURLException mue) {
+            System.out.println(mue); //Shouldn't be necessary but it's here in case.
+        }
+        return spotifyID;
     }
 
      public static Song JSONArtistSongInfo(JSONObject jsonObject) {

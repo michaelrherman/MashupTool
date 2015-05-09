@@ -43,6 +43,24 @@ public class EchoNest {
     return url;
     }
 
+    public static String getSpotifyID(String artistSearch, String songSearch) {
+        try {
+            artistSearch = URLEncoder.encode(artistSearch, "UTF-8"); //URLEncoder necessary to account for spaces, dashes, etc.
+            songSearch = URLEncoder.encode(songSearch, "UTF-8");
+            url = "http://developer.echonest.com/api/v4/song/search?api_key="+keyAPI+"&format=json&results=1&artist="+artistSearch+"&title="+songSearch+"&bucket=id:spotify&bucket=tracks&limit=true";
+        } catch (IOException IOE) {
+            System.out.println("There was a problem talking to EchoNest.");
+            if (IOE.toString().contains("400 for URL")) {
+                System.out.println("It was on the user side");
+            } else if (IOE.toString().contains("500 for URL")) {
+                System.out.println("It was on the server side");
+            }
+        } catch (Exception E) {
+            System.out.println(E);
+        }
+        return url;
+    }
+
     public static String echonestInfo(String echonestID) {
         try {
             url = "http://developer.echonest.com/api/v4/song/profile?api_key="+keyAPI+"&id="+echonestID+"&bucket=audio_summary";
