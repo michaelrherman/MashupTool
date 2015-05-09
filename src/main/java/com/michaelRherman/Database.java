@@ -75,6 +75,27 @@ public class Database {
         }
     }
 
+    protected static LinkedList getFavorites() throws SQLException{
+        LinkedList favorites = new LinkedList();
+        try {
+            String selectArtistSong = "Select Artist, Song FROM Favorites";
+            rs = statement.executeQuery(selectArtistSong);
+
+            while (rs.next()) {
+                String artist = rs.getString(1);
+                String song = rs.getString(2);
+//                String songID = rs.getString(3);
+//                String artistID = rs.getString(4);
+                String search = artist+"-"+song;
+                favorites.add((String) search);
+            }
+        } catch (SQLException se) {
+            closeDatabase();
+            System.out.println(se);
+        }
+        return favorites;
+    }
+
     private static void printSearches() throws SQLException{
         try {
             String printAll = "Select * FROM Searches";

@@ -33,6 +33,8 @@ public class MashupGUI extends JFrame {
     protected JComboBox<String> setSway;
     private JButton favoriteButton1;
     private JButton favoriteButton2;
+    private JComboBox favoriteBox1;
+    private JComboBox favoriteBox2;
 
     private static String artistSearch1;
     private static String songSearch1;
@@ -44,6 +46,7 @@ public class MashupGUI extends JFrame {
     private static final String Medium = "Medium";
     private static final String High = "High";
     protected static final String[] comboOptions = {Exact, Low, Medium, High};
+    protected static LinkedList favoriteOptions;
 
     protected static LinkedList<Song> ResponseOne;
     protected static LinkedList<Song> ResponseTwo;
@@ -67,6 +70,22 @@ public class MashupGUI extends JFrame {
 
         for (int x = 0; x < comboOptions.length; x++)
         setSway.addItem((String) Array.get(comboOptions, x));
+
+        try {
+            favoriteOptions = Database.getFavorites();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        //This is the favorites box on the left
+        favoriteBox1.addItem("Favorites");
+        for (int x = 0; x < favoriteOptions.size(); x++)
+            favoriteBox1.addItem((String) favoriteOptions.get(x));
+
+        //This is the favorites box on the left
+        favoriteBox2.addItem("Favorites");
+        for (int x = 0; x < favoriteOptions.size(); x++)
+            favoriteBox2.addItem((String) favoriteOptions.get(x));
 
         //This is the OK button
         okayButton.addActionListener(new ActionListener() {
