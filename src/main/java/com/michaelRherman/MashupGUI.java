@@ -184,6 +184,12 @@ public class MashupGUI extends JFrame {
                 try {
                     spotifyID = JSON.getSpotifyID(EchoNest.getSpotifyID(selectionLeftArray[1], selectionLeftArray[2]));
                     Main.openDefaultBrowser(spotifyID);
+                } catch (NullPointerException npe) {
+                    JOptionPane.showMessageDialog(null, "Please select a song to play.",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (IndexOutOfBoundsException oob) {
+                    JOptionPane.showMessageDialog(null, "Song not playable in your area.",
+                            "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (Exception e) {
                     System.out.println(e);
                 }
@@ -199,9 +205,31 @@ public class MashupGUI extends JFrame {
                 try {
                     spotifyID = JSON.getSpotifyID(EchoNest.getSpotifyID(selectionRightArray[1],selectionRightArray[2]));
                     Main.openDefaultBrowser(spotifyID);
+                } catch (NullPointerException npe) {
+                    JOptionPane.showMessageDialog(null, "Please select a song to play.",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (IndexOutOfBoundsException oob) {
+                    JOptionPane.showMessageDialog(null, "Song not playable in your area.",
+                            "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (Exception e) {
                     System.out.println(e);
                 }
+            }
+        });
+
+        //THIS IS THE LEFT FAVORITE BUTTON
+        favoriteButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+            }
+        });
+
+        //THIS IS THE RIGHT FAVORITE BUTTON
+        favoriteButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
             }
         });
     }

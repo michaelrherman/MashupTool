@@ -65,7 +65,15 @@ public class EchoNest {
         try {
             url = "http://developer.echonest.com/api/v4/song/profile?api_key="+keyAPI+"&id="+echonestID+"&bucket=audio_summary";
         } catch (Exception E) {
-            System.out.println(E);
+            if (E.toString().contains("400 for URL")) {
+                System.out.println("There was a problem talking to EchoNest.");
+                System.out.println("It was on the user side");
+            } else if (E.toString().contains("500 for URL")) {
+                System.out.println("There was a problem talking to EchoNest.");
+                System.out.println("It was on the server side");
+            } else {
+                System.out.println(E);
+            }
         }
         return url;
     }
