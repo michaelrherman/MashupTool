@@ -213,7 +213,7 @@ public class MashupGUI extends JFrame {
                 if (addtoReddit) {
                     String artist1 = selectionLeftArray[1]+" "+selectionLeftArray[2];
                     String artist2 = selectionRightArray[1]+" "+selectionRightArray[2];
-                    Reddit.postReddit(artist1, artist2, comparisonString);
+                    Reddit.postReddit(artist1, artist2, comparisonString, toleranceSet);
                 }
             }
         });

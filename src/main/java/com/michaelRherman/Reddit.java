@@ -9,7 +9,7 @@ public class Reddit {
     private static String redditUsername;
     private static String redditPW;
 
-    public static void postReddit(String artist1, String artist2, String comparisonString){
+    public static void postReddit(String artist1, String artist2, String comparisonString, String toleranceSet){
         // Initialize REST Client
         RestClient restClient = new HttpRestClient();
         restClient.setUserAgent("bot/1.0 by name");
@@ -26,7 +26,7 @@ public class Reddit {
         SubmitActions submitActions = new SubmitActions(restClient, user);
 
         // Submit a self post
-        submitActions.submitSelfPost(redditUsername+" compared "+artist1+" and "+artist2, comparisonString
+        submitActions.submitSelfPost(redditUsername+" compared "+artist1+" and "+artist2, "For "+toleranceSet+" the results for "+comparisonString
                 , "MashupTool", null, null);
     }
 
